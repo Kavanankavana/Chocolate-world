@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Register')}"></head>
+<body class="auth-page-body">
+<header th:replace="~{fragments :: header(${places})}"></header>
+
+<!-- Ambient Animated Chocolate Background -->
+<div class="cocoa-atmosphere" aria-hidden="true">
+    <div class="cocoa-orb orb-1"></div>
+    <div class="cocoa-orb orb-2"></div>
+    <div class="cocoa-orb orb-3"></div>
+    <div class="cocoa-particles">
+        <span class="particle p-1">🍫</span>
+        <span class="particle p-2">✨</span>
+        <span class="particle p-3">🌰</span>
+        <span class="particle p-4">🍬</span>
+        <span class="particle p-5">✨</span>
+        <span class="particle p-6">🍫</span>
+        <span class="particle p-7">☕</span>
+        <span class="particle p-8">✨</span>
+    </div>
+</div>
+
+<main class="auth-page-wrapper">
+    <div th:replace="~{fragments :: alerts}"></div>
+
+    <div class="auth-deluxe-card" id="deluxeCard">
+        <!-- Left Side: Artisan Chocolate Experience Showcase -->
+        <div class="auth-showcase">
+            <div class="showcase-img-wrap">
+                <img src="/images/truffle.jpg" alt="Rich Cocoa Truffles" class="showcase-img">
+                <div class="showcase-gradient"></div>
+            </div>
+            
+            <div class="showcase-badge">
+                <span class="badge-sparkle">✨</span>
+                <span>Join the Tasting Circle</span>
+            </div>
+
+            <div class="showcase-content">
+                <span class="showcase-kicker">Become a Member</span>
+                <h2 class="showcase-title">Your Chocolate Journey Starts Here</h2>
+                <p class="showcase-desc">
+                    Bookmark your favorite chocolate bars, discover exotic origins, and add your own artisanal chocolate creations.
+                </p>
+
+                <div class="showcase-pills">
+                    <span class="pill-item">🎁 Free Membership</span>
+                    <span class="pill-item">🍫 Add Chocolates</span>
+                    <span class="pill-item">⭐ Personal Profile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Interactive Registration Portal -->
+        <div class="auth-form-side">
+            <div class="portal-badge">
+                <span class="portal-icon">✨</span>
+                <span class="portal-text">New Chocolatier</span>
+            </div>
+
+            <h1 class="portal-title">Create Account</h1>
+            <p class="portal-subtitle">Sign up in seconds to start curating world-class chocolates.</p>
+
+            <form th:action="@{/register}" method="post" class="form auth-portal-form">
+                <div class="field-wrap">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-box">
+                        <span class="input-glyph">👤</span>
+                        <input type="text" id="fullName" name="fullName" placeholder="e.g. Maya Lin" required autofocus>
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <label for="email">Email Address</label>
+                    <div class="input-box">
+                        <span class="input-glyph">✉️</span>
+                        <input type="email" id="email" name="email" placeholder="maya@example.com" required>
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <label for="username">Username</label>
+                    <div class="input-box">
+                        <span class="input-glyph">🏷️</span>
+                        <input type="text" id="username" name="username" placeholder="Choose a username" required>
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <label for="password">Password</label>
+                    <div class="input-box">
+                        <span class="input-glyph">🔒</span>
+                        <input type="password" id="password" name="password" placeholder="At least 6 characters" required>
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-box">
+                        <span class="input-glyph">🛡️</span>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-type password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-shimmer">
+                    <span class="btn-label">Create Free Account</span>
+                    <span class="btn-arrow">→</span>
+                    <span class="shimmer-glimmer"></span>
+                </button>
+            </form>
+
+            <div class="auth-switch-box">
+                <span>Already registered?</span>
+                <a href="/login" class="switch-link">Log in here <span>→</span></a>
+            </div>
+
+            <div class="auth-foot-back">
+                <a href="/" class="home-return-link">← Return to Chocolate Collection</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

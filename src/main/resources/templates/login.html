@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Login')}"></head>
+<body class="auth-page-body">
+<header th:replace="~{fragments :: header(${places})}"></header>
+
+<!-- Ambient Animated Chocolate Background -->
+<div class="cocoa-atmosphere" aria-hidden="true">
+    <div class="cocoa-orb orb-1"></div>
+    <div class="cocoa-orb orb-2"></div>
+    <div class="cocoa-orb orb-3"></div>
+    <div class="cocoa-particles">
+        <span class="particle p-1">🍫</span>
+        <span class="particle p-2">✨</span>
+        <span class="particle p-3">🌰</span>
+        <span class="particle p-4">🍬</span>
+        <span class="particle p-5">✨</span>
+        <span class="particle p-6">🍫</span>
+        <span class="particle p-7">☕</span>
+        <span class="particle p-8">✨</span>
+    </div>
+</div>
+
+<main class="auth-page-wrapper">
+    <div th:replace="~{fragments :: alerts}"></div>
+
+    <div class="auth-deluxe-card" id="deluxeCard">
+        <!-- Left Side: Artisan Chocolate Experience Showcase -->
+        <div class="auth-showcase">
+            <div class="showcase-img-wrap">
+                <img src="/images/praline.jpg" alt="Artisanal Belgian Pralines" class="showcase-img" id="showcaseImg">
+                <div class="showcase-gradient"></div>
+            </div>
+            
+            <div class="showcase-badge">
+                <span class="badge-sparkle">✨</span>
+                <span>Artisan Cocoa • Bean to Bar</span>
+            </div>
+
+            <div class="showcase-content">
+                <span class="showcase-kicker">Welcome to</span>
+                <h2 class="showcase-title">Chocolate World</h2>
+                <p class="showcase-desc">
+                    Experience handcrafted chocolates from master chocolatiers in Brussels, Zurich, Turin, Oaxaca, and Tokyo.
+                </p>
+
+                <div class="showcase-pills">
+                    <span class="pill-item">🌍 7 Origins</span>
+                    <span class="pill-item">🍫 4 Varieties</span>
+                    <span class="pill-item">🍯 Pure Indulgence</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Interactive Login Portal -->
+        <div class="auth-form-side">
+            <div class="portal-badge">
+                <span class="portal-icon">🍫</span>
+                <span class="portal-text">Chocolatier Access</span>
+            </div>
+
+            <h1 class="portal-title">Sign In</h1>
+            <p class="portal-subtitle">Welcome back! Please enter your details or click a demo account below.</p>
+
+            <form th:action="@{/login}" method="post" class="form auth-portal-form" id="loginForm">
+                <div class="field-wrap">
+                    <label for="username">Username or Email</label>
+                    <div class="input-box">
+                        <span class="input-glyph">👤</span>
+                        <input type="text" id="username" name="username" placeholder="e.g. admin or user" required autofocus autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <div class="field-header-row">
+                        <label for="password">Password</label>
+                        <button type="button" class="btn-link-action" onclick="fillDemo('admin', 'password123');">Auto-fill Admin</button>
+                    </div>
+                    <div class="input-box">
+                        <span class="input-glyph">🔒</span>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="toggle-pw-btn" id="pwToggle" title="Show/Hide Password" aria-label="Toggle password visibility">
+                            <span id="pwIcon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1-Click Quick Demo Chips -->
+                <div class="demo-access-box">
+                    <div class="demo-access-header">
+                        <span class="demo-icon">⚡</span>
+                        <span class="demo-label">1-Click Demo Accounts:</span>
+                    </div>
+                    <div class="demo-chip-group">
+                        <button type="button" class="demo-chip chip-admin" onclick="fillDemo('admin', 'password123')">
+                            <span class="chip-status"></span>
+                            <span class="chip-title">Admin</span>
+                            <span class="chip-hint">admin / password123</span>
+                        </button>
+                        <button type="button" class="demo-chip chip-user" onclick="fillDemo('user', 'password123')">
+                            <span class="chip-status"></span>
+                            <span class="chip-title">User</span>
+                            <span class="chip-hint">user / password123</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-shimmer" id="submitBtn">
+                    <span class="btn-label">Sign In to Collection</span>
+                    <span class="btn-arrow">→</span>
+                    <span class="shimmer-glimmer"></span>
+                </button>
+            </form>
+
+            <div class="auth-switch-box">
+                <span>New cocoa enthusiast?</span>
+                <a href="/register" class="switch-link">Create an account <span>→</span></a>
+            </div>
+
+            <div class="auth-foot-back">
+                <a href="/" class="home-return-link">← Return to Chocolate Collection</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // 1-Click Demo Account Autofill with visual feedback
+    function fillDemo(username, password) {
+        const uInput = document.getElementById('username');
+        const pInput = document.getElementById('password');
+        const card = document.getElementById('deluxeCard');
+        
+        uInput.value = username;
+        pInput.value = password;
+        
+        // Highlight inputs
+        uInput.classList.add('flash-input');
+        pInput.classList.add('flash-input');
+        setTimeout(() => {
+            uInput.classList.remove('flash-input');
+            pInput.classList.remove('flash-input');
+        }, 800);
+
+        // Focus submit button
+        document.getElementById('submitBtn').focus();
+    }
+
+    // Toggle Password Visibility
+    const pwToggle = document.getElementById('pwToggle');
+    const pwInput = document.getElementById('password');
+    const pwIcon = document.getElementById('pwIcon');
+    if (pwToggle && pwInput) {
+        pwToggle.addEventListener('click', function() {
+            const isPassword = pwInput.type === 'password';
+            pwInput.type = isPassword ? 'text' : 'password';
+            pwIcon.textContent = isPassword ? '🙈' : '👁️';
+        });
+    }
+
+    // 3D Card Tilt Effect on Mouse Move
+    const card = document.getElementById('deluxeCard');
+    if (card && window.matchMedia('(min-width: 900px)').matches) {
+        document.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const cardX = rect.left + rect.width / 2;
+            const cardY = rect.top + rect.height / 2;
+            const angleX = (cardY - e.clientY) / 38;
+            const angleY = (e.clientX - cardX) / 38;
+            card.style.transform = `perspective(1200px) rotateX(${Math.max(Math.min(angleX, 6), -6)}deg) rotateY(${Math.max(Math.min(angleY, 6), -6)}deg)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+        });
+    }
+</script>
+</body>
+</html>

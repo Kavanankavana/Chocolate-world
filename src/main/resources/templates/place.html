@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${place.name})}"></head>
+<body>
+<header th:replace="~{fragments :: header(${places})}"></header>
+
+<main>
+    <div th:replace="~{fragments :: alerts}"></div>
+
+    <section class="hero">
+        <p class="back"><a href="/">← All chocolates</a></p>
+        <h1 th:text="${place.name} + ', ' + ${place.country}">Brussels, Belgium</h1>
+        <p th:text="${place.description}">About this place</p>
+    </section>
+
+    <p th:if="${place.chocolates.isEmpty()}" class="empty">
+        Nothing listed here yet. <a href="/chocolates/new">Add a chocolate</a>.
+    </p>
+
+    <section class="grid">
+        <article th:each="c : ${place.chocolates}" class="card">
+            <div class="card-image-wrap">
+                <img th:src="${c.imageUrl != null and !c.imageUrl.isEmpty() ? c.imageUrl : '/images/default_' + #strings.toLowerCase(c.type) + '.jpg'}"
+                     th:alt="${c.name}"
+                     class="card-img"
+                     loading="lazy">
+                <span class="type-pill" th:classappend="'t-' + ${#strings.toLowerCase(c.type)}" th:text="${c.type}">Dark</span>
+            </div>
+            <div class="stripe" th:classappend="'t-' + ${#strings.toLowerCase(c.type)}"></div>
+            <div class="card-body">
+                <h2 th:text="${c.name}">Chocolate name</h2>
+                <p class="meta" th:text="${c.type} + ' chocolate'">Dark chocolate</p>
+                <p th:text="${c.description}">Description</p>
+            </div>
+            <div class="card-foot">
+                <span class="price" th:text="'₹' + ${#numbers.formatDecimal(c.price, 1, 0)} + ' / 100 g'">₹500 / 100 g</span>
+            </div>
+        </article>
+    </section>
+</main>
+</body>
+</html>

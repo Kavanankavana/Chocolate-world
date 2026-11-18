@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' | Chocolate World'">Chocolate World</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header th:fragment="header(places)" class="site-header">
+    <div class="header-left">
+        <a href="/" class="logo">🍫 Chocolate World</a>
+        <nav class="nav-places">
+            <a th:each="p : ${places}" th:href="@{/places/{id}(id=${p.id})}" th:text="${p.name}">Brussels</a>
+            <a href="/chocolates/new" class="add-link">+ Add chocolate</a>
+        </nav>
+    </div>
+    <div class="header-right">
+        <div th:if="${session.currentUser != null}" class="user-pill">
+            <span class="user-name" th:text="'Hello, ' + ${session.currentUser.fullName}">Hello, User</span>
+            <a href="/logout" class="btn-auth btn-logout">Logout</a>
+        </div>
+        <div th:if="${session.currentUser == null}" class="auth-group">
+            <a href="/login" class="btn-auth btn-login">Log In</a>
+            <a href="/register" class="btn-auth btn-signup">Register</a>
+        </div>
+    </div>
+</header>
+
+<!-- Notification Banner Fragment -->
+<div th:fragment="alerts" class="alerts-container">
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+    <div th:if="${info}" class="alert alert-info" th:text="${info}"></div>
+</div>
+
+</body>
+</html>
